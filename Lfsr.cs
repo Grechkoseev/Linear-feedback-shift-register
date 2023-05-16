@@ -29,6 +29,10 @@ internal class Lfsr
 
     }
 
+    /// <summary>
+    /// Помещаем число в 8-битный регистр
+    /// </summary>
+    /// <param name="number"></param>
     public void PutNumberToRegister(int number)
     {
         var binaryString = Convert.ToString(number, 2);
@@ -48,18 +52,28 @@ internal class Lfsr
         }
     }
 
+    /// <summary>
+    /// Вывод числа, находящегося в регистре
+    /// </summary>
     public void PrintNumberFromRegister()
     {
         ConvertRegisterToNumber(out var registerNumber);
         Console.Write("{0} ", registerNumber);
     }
 
+    /// <summary>
+    /// Конвертация регистра в число
+    /// </summary>
+    /// <param name="number"></param>
     private void ConvertRegisterToNumber(out int number)
     {
         var stringRegister = string.Concat(_register);
         number = Convert.ToInt32(stringRegister, 2);
     }
 
+    /// <summary>
+    /// Вычисляем значение регистра при очереднйо итерации
+    /// </summary>
     public void CalculateNextSequenceMember()
     {
         BinaryOutputSequence.Add(_register[^1]);
@@ -70,6 +84,10 @@ internal class Lfsr
         SequenceLength++;
     }
 
+    /// <summary>
+    /// Проверка равенства текущего значения регистра и начального
+    /// </summary>
+    /// <returns></returns>
     public bool IsCurrentSequenceMemberEqualsInitialNumber()
     {
         ConvertRegisterToNumber(out var currentNumber);
@@ -77,11 +95,17 @@ internal class Lfsr
         return currentNumber == _initialValue;
     }
 
+    /// <summary>
+    /// Вывод длины псевдослучайной последовательности в битах
+    /// </summary>
     public void PrintSequenceLength()
     {
         Console.WriteLine("\n\nДлина периодна псевдослучайной последовательности равна {0} бит", SequenceLength);
     }
 
+    /// <summary>
+    /// Вывод псевдослучайной последовательности в битах
+    /// </summary>
     public void PrintBinaryOutputSequence()
     {
         Console.WriteLine("\n\nВыходная псевдослучайная последовательность бит: "); 
@@ -91,6 +115,9 @@ internal class Lfsr
         }
     }
 
+    /// <summary>
+    /// Вывод однобайтового предствления выходной последовательности
+    /// </summary>
     public void PrintByteSequenceRepresentation()
     {
         var byteSequenceCount = 0;
@@ -118,12 +145,20 @@ internal class Lfsr
         }
     }
 
+    /// <summary>
+    /// Конвертация листа бит в число
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
     private static int ConvertListToNumber(List<int> list)
     {
         var stringList = string.Concat(list);
         return Convert.ToInt32(stringList, 2);
     }
 
+    /// <summary>
+    /// Вычисление количества четных и нечетных элементов в однобайтовом представлении
+    /// </summary>
     public void CalculateEvenOddElements()
     {
         foreach (var number in ByteSequenceList)
@@ -140,6 +175,9 @@ internal class Lfsr
         }
     }
 
+    /// <summary>
+    /// Вычисление количества нулей и единиц в битовом представлении
+    /// </summary>
     public void CalculateZerosOnesElements()
     {
         foreach (var bit in BinaryOutputSequence)
@@ -156,12 +194,18 @@ internal class Lfsr
         }
     }
 
+    /// <summary>
+    /// Вывод количества четных и нечетных элементов в однобайтовом представлении
+    /// </summary>
     public void PrintEvenOddCounters()
     {
         Console.WriteLine("\n\nКоличество четных элементов последовательности {0}", EvenCounter);
         Console.WriteLine("Количество нечетных элементов последовательности {0}", OddCounter);
     }
 
+    /// <summary>
+    /// Вывод количества нулей и единиц в битовом представлении
+    /// </summary>
     public void PrintZerosOnesCounters()
     {
         Console.WriteLine("\nКоличество нулей в битовом представлении последовательности {0}", ZeroCounter);
